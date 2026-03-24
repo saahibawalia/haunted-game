@@ -1,0 +1,32 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+}
+
+.game-container{
+    margin-top: 100px;
+}
+
+#story {
+    animation: fadeIn 1s ease-in;
+}
+
+button{
+    padding: 10px 20px;
+    margin: 10px;
+    background-color: darkred;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover{
+    background-color: red;
+    transform: scale(1.1);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0;}
+    to {opacity: 1;}
+}
