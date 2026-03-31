@@ -1,3 +1,54 @@
+
+function typeText(text, elementId, speed = 120, callback = null) {
+  const element = document.getElementById(elementId);
+  const sound = document.getElementById("typeSound");
+
+  element.innerHTML = "";
+  const words = text.split(" ");
+  let i = 0;
+
+  // start sound once
+  if (sound) {
+    sound.volume = 0.3;
+    sound.play().catch(() => {});
+  }
+
+  function typing() {
+    if (i < words.length) {
+      let word = words[i];
+      element.innerHTML += word + " ";
+
+      let delay = speed;
+
+      if (word.includes("...")) {
+        delay = 800; 
+      } else if (word.endsWith(".")) {
+        delay = 500;
+      } else if (word.endsWith(",")) {
+        delay = 300;
+      }
+
+      i++;
+      setTimeout(typing, delay);
+    } else {
+      // stop sound when done
+      if (sound) {
+        sound.pause();
+        sound.currentTime = 0;
+      }
+
+      if (callback) callback();
+    }
+  }
+
+  typing();
+}
+
+
+function changeBackground(image) {
+  document.body.style.backgroundImage = `url('${image}')`;
+}
+
 let health = 100;
 
 function updateHealth(amount) {
@@ -9,16 +60,12 @@ function updateHealth(amount) {
   }
 }
 
-function changeBackground(image) {
-  document.body.style.backgroundImage = `url(${image})`;
-}
-
 function chooseRoom(room) {
   const story = document.getElementById("story");
   const choices = document.getElementById("choices");
 
   if (room === "living") {
-    changeBackground("https://images.unsplash.com/photo-1600585154340-be6161a56a0c");
+    changeBackground("images/scary-dog.png");
 
     story.innerText = "A bulldog guards treasure... steal it?";
     choices.innerHTML = `
@@ -111,4 +158,44 @@ function restartGame() {
     <button onclick="chooseRoom('dining')">Dining Room</button>
   `;
   document.getElementById("restart").style.display = "none";
-  document.body.style.backgroundImage = "none";
+  changeBackground("images/haunted-house.png");
+}
+
+window.onload = function() {
+  changeBackground("images/haunted-house.png");
+
+  const introText = `You receive a letter sealed in black wax.
+
+"To my only heir...
+
+If you are reading this, I am gone.
+
+Everything I owned, my wealth, my estate, my secrets, now belongs to you.
+
+But be warned...
+
+The mansion is not just a house.
+
+There are things inside it that should have stayed buried.
+
+Enter if you wish to claim your inheritance...
+
+But once you step inside, there is no turning back."`;
+
+  typeText(introText, "story", 25, () => {
+    document.getElementById("choices").innerHTML = `
+      <button onclick="chooseRoom('living')">Enter the Mansion</button>
+      <button onclick="endGame('You walk away... but something follows you home.')">Leave</button>
+    `;
+  });
+};
+
+document.body.addEventListener("click", () => {
+  const sound = document.getElementById("typeSound");
+  if (sound) {
+    sound.play().then(() => {
+      sound.pause();
+      sound.currentTime = 0;
+    }).catch(() => {});
+  }
+}, { once: true });
