@@ -64,6 +64,15 @@ function chooseRoom(room) {
   const story = document.getElementById("story");
   const choices = document.getElementById("choices");
 
+choices.innerHTML = `
+  <button onclick="chooseRoom('living')">Enter the Mansion</button>
+  <button onclick="endGame('You walk away... but something follows you home.')">Leave</button>
+`;
+
+setTimeout(() => {
+  choices.style.opacity = "1";
+}, 100);
+
   if (room === "living") {
     changeBackground("images/scary-dog.png");
 
@@ -182,11 +191,16 @@ Enter if you wish to claim your inheritance...
 
 But once you step inside, there is no turning back."`;
 
+  const choices = document.getElementById("choices");
+
   typeText(introText, "story", 25, () => {
-    document.getElementById("choices").innerHTML = `
+    choices.innerHTML = `
       <button onclick="chooseRoom('living')">Enter the Mansion</button>
       <button onclick="endGame('You walk away... but something follows you home.')">Leave</button>
     `;
+
+    // 👇 THIS MAKES THEM VISIBLE
+    choices.style.opacity = "1";
   });
 };
 
