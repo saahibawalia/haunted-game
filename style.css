@@ -4,82 +4,111 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
   background-size: cover;
   background-position: center;
+  background-image: url("images/haunted-house.png");
+
   overflow: hidden;
+
   color: white;
   font-family: Arial;
   text-align: center;
+
   transition: background 1s ease;
-  background-image: url("images/haunted-house.png");  
 }
 
 .game-container {
-  max-width:600px;
+  max-width: 600px;
   width: 90%;
-  max-height: 90vh;
-  overflow: hidden;
-  text-align: center;
+
   background: rgba(0, 0, 0, 0.6);
-  padding: 20px;
-  margin-top: 100px;
+  padding: 30px;
   border-radius: 10px;
-  position: relative;
-  height: 90vh;
+
+  margin: auto;
 }
 
-#story {
-  animation: fadeIn 1s ease-in;
-  font-size: 18px;
-}
 
 #story {
   white-space: pre-line;
   line-height: 1.6;
   font-size: 18px;
-}
 
-#story {
-  max-width: 600px;
-  margin: 0 auto;
+  margin: 20px 0;
+
+  animation: fadeIn 1s ease-in;
 }
 
 #choices {
-  position: absolute;
-  bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
+  position: fixed;
+  top: 50%;
+  left: 0;
+  width: 100%;
+
+  transform: translateY(-50%);
+
   opacity: 0;
   transition: opacity 1s ease;
 }
 
-button {
-  padding: 10px 20px;
-  margin: 10px;
+
+#choices button {
+  position: absolute;
+
+  padding: 18px 40px;
+  font-size: 20px;
+
   background-color: darkred;
   color: white;
   border: none;
+  border-radius: 10px;
+
   cursor: pointer;
-  border-radius: 5px;
+  transition: all 0.3s ease;
 }
+
+/* LEFT BUTTON */
+#choices button:first-child {
+  left: 60px;
+}
+
+/* RIGHT BUTTON */
+#choices button:last-child {
+  right: 60px;
+}
+
 
 button:hover {
   background-color: red;
   transform: scale(1.1);
+  box-shadow: 0 0 15px red;
 }
+
 
 #restart {
   display: none;
   background-color: black;
   border: 1px solid white;
+  margin-top: 15px;
 }
+
+
+#health {
+  position: fixed;
+  top: 20px;
+  right: 30px;
+
+  background: rgba(0,0,0,0.6);
+  padding: 10px 15px;
+  border-radius: 8px;
+
+  font-size: 18px;
+  z-index: 100;
+}
+
 
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
-}
-
-button {
-  position: relative;
-  z-index: 10;
 }

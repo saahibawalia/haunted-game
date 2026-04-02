@@ -1,4 +1,3 @@
-
 function typeText(text, elementId, speed = 120, callback = null) {
   const element = document.getElementById(elementId);
   const sound = document.getElementById("typeSound");
@@ -7,7 +6,6 @@ function typeText(text, elementId, speed = 120, callback = null) {
   const words = text.split(" ");
   let i = 0;
 
-  // start sound once
   if (sound) {
     sound.volume = 0.3;
     sound.play().catch(() => {});
@@ -20,30 +18,23 @@ function typeText(text, elementId, speed = 120, callback = null) {
 
       let delay = speed;
 
-      if (word.includes("...")) {
-        delay = 800; 
-      } else if (word.endsWith(".")) {
-        delay = 500;
-      } else if (word.endsWith(",")) {
-        delay = 300;
-      }
+      if (word.includes("...")) delay = 800;
+      else if (word.endsWith(".")) delay = 500;
+      else if (word.endsWith(",")) delay = 300;
 
       i++;
       setTimeout(typing, delay);
     } else {
-      // stop sound when done
       if (sound) {
         sound.pause();
         sound.currentTime = 0;
       }
-
       if (callback) callback();
     }
   }
 
   typing();
 }
-
 
 function changeBackground(image) {
   document.body.style.backgroundImage = `url('${image}')`;
@@ -55,48 +46,47 @@ function updateHealth(amount) {
   health += amount;
   document.getElementById("health").innerText = "Health: " + health + " ❤️";
 
-  if (health <= 0) {
-    endGame("You have died 💀");
-  }
+  if (health <= 0) endGame("You have died 💀");
+}
+
+function showChoices(html) {
+  const choices = document.getElementById("choices");
+  choices.style.opacity = "0";
+  choices.innerHTML = html;
+
+  setTimeout(() => {
+    choices.style.opacity = "1";
+  }, 100);
 }
 
 function chooseRoom(room) {
   const story = document.getElementById("story");
-  const choices = document.getElementById("choices");
-
-choices.innerHTML = `
-  <button onclick="chooseRoom('living')">Enter the Mansion</button>
-  <button onclick="endGame('You walk away... but something follows you home.')">Leave</button>
-`;
-
-setTimeout(() => {
-  choices.style.opacity = "1";
-}, 100);
 
   if (room === "living") {
     changeBackground("images/scary-dog.png");
 
     story.innerText = "A bulldog guards treasure... steal it?";
-    choices.innerHTML = `
+
+    showChoices(`
       <button onclick="pitbullChoice('yes')">Steal</button>
       <button onclick="pitbullChoice('no')">Leave</button>
-    `;
+    `);
   }
 
   else if (room === "dining") {
     changeBackground("https://images.unsplash.com/photo-1618220179428-22790b461013");
 
     story.innerText = "A glowing vase sits on the table...";
-    choices.innerHTML = `
+
+    showChoices(`
       <button onclick="vaseChoice('open')">Open it</button>
       <button onclick="vaseChoice('ignore')">Ignore it</button>
-    `;
+    `);
   }
 }
 
 function pitbullChoice(choice) {
   const story = document.getElementById("story");
-  const choices = document.getElementById("choices");
 
   if (choice === "yes") {
     updateHealth(-100);
@@ -110,36 +100,35 @@ function pitbullChoice(choice) {
 
 function vaseChoice(choice) {
   const story = document.getElementById("story");
-  const choices = document.getElementById("choices");
 
   if (choice === "open") {
     updateHealth(-30);
     story.innerText = "Bones inside! You feel cursed...";
-    
-    choices.innerHTML = `
+
+    showChoices(`
       <button onclick="ghostEncounter()">Keep exploring</button>
-    `;
+    `);
   } else {
     story.innerText = "You walk away... but something follows you.";
-    
-    choices.innerHTML = `
+
+    showChoices(`
       <button onclick="ghostEncounter()">Turn around</button>
-    `;
+    `);
   }
 }
 
 function ghostEncounter() {
   const story = document.getElementById("story");
-  const choices = document.getElementById("choices");
 
   changeBackground("https://images.unsplash.com/photo-1509248961158-e54f6934749c");
 
   updateHealth(-50);
 
   story.innerText = "A ghost attacks you from the shadows!";
-  choices.innerHTML = `
+
+  showChoices(`
     <button onclick="escape()">Run</button>
-  `;
+  `);
 }
 
 function escape() {
@@ -161,13 +150,11 @@ function showRestart() {
 function restartGame() {
   health = 100;
   document.getElementById("health").innerText = "Health: 100 ❤️";
-  document.getElementById("story").innerText = "You stand outside a creepy mansion... Where do you go?";
-  document.getElementById("choices").innerHTML = `
-    <button onclick="chooseRoom('living')">Living Room</button>
-    <button onclick="chooseRoom('dining')">Dining Room</button>
-  `;
   document.getElementById("restart").style.display = "none";
+
   changeBackground("images/haunted-house.png");
+
+  window.onload(); // restart intro properly
 }
 
 window.onload = function() {
@@ -191,19 +178,15 @@ Enter if you wish to claim your inheritance...
 
 But once you step inside, there is no turning back."`;
 
-  const choices = document.getElementById("choices");
+    typeText(introText, "story", 25, () => {
+      showChoices(`
+        <button onclick="chooseRoom('living')">Enter the Mansion</button>
+        <button onclick="endGame('You walk away... but something follows you home.')">Leave</button>
+      `);
+    });
+  };
 
-  typeText(introText, "story", 25, () => {
-    choices.innerHTML = `
-      <button onclick="chooseRoom('living')">Enter the Mansion</button>
-      <button onclick="endGame('You walk away... but something follows you home.')">Leave</button>
-    `;
-
-    // 👇 THIS MAKES THEM VISIBLE
-    choices.style.opacity = "1";
-  });
-};
-
+// unlock sound on first click
 document.body.addEventListener("click", () => {
   const sound = document.getElementById("typeSound");
   if (sound) {

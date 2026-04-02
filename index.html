@@ -7,18 +7,18 @@
 
 <body>
 
-  <audio id="typeSound" src="sounds/typing.mp3/" loop></audio>
-  <div class="game-container">
-    <h1>Haunted Mansion</h1>
+  <!-- FIXED audio path -->
+  <audio id="typeSound" src="sounds/typing.mp3" loop></audio>
 
-    <p id="health">Health: 100 ❤️</p>
+ <div class="game-container">
+  <h1>Haunted Mansion</h1>
+  <p id="health">Health: 100 ❤️</p>
+  <p id="story"></p>
+  <button id="restart" onclick="restartGame()">Restart</button>
+</div>
 
-    <p id="story"></p>
-
-    <div id="choices"></div>
-
-    <button id="restart" onclick="restartGame()">Restart</button>
-  </div>
+<!-- 👇 MOVE IT HERE -->
+<div id="choices"></div>
 
   <script src="script.js"></script>
 </body>
