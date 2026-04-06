@@ -108,7 +108,7 @@ Like it was never meant to be touched.`;
 // ENTER
 // ======================
 function enterMansion() {
-  changeBackground("images/mansion-inside.png");
+  changeBackground("images/inside-house.png");
 
   const text = `The door closes behind you.
 
@@ -141,6 +141,10 @@ function livingRoom() {
   const text = `The dog is completely still.
 
 Too still.
+
+You see it protecting something.
+
+A pile of gold.
 
 Then its eyes move.
 
@@ -198,7 +202,7 @@ Why?`;
 // DARK HALL
 // ======================
 function darkHall() {
-  changeBackground("images/ghost.png");
+  changeBackground("images/hallway.png");
 
   const text = `You step into darkness.
 
@@ -250,7 +254,7 @@ Just skin stretched tight—
 trying to become one.`;
 
   typeText(text, "story", 25, () => {
-    endGame("It learns your face. 💀");
+    endGame("It leans towards your face. 💀");
   });
 }
 
@@ -258,8 +262,7 @@ trying to become one.`;
 // SECRET ROOM
 // ======================
 function secretRoom() {
-  changeBackground("images/haunted-house.png");
-
+  changeBackground("images/room.png");
   const text = `You find a hidden room.
 
 Something is inside.
@@ -290,7 +293,7 @@ You pass through it.
 
 You realize—
 
-You never left the mansion.`;
+You were never at the mansion.`;
 
   typeText(text, "story", 25, () => {
     document.getElementById("choices").innerHTML = "";
@@ -331,3 +334,4 @@ document.body.addEventListener("click", () => {
     }).catch(() => {});
   }
 }, { once: true });
+

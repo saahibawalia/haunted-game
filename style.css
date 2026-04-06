@@ -43,12 +43,16 @@ body {
 #choices {
   position: fixed;
   top: 50%;
-  left: 0;
-  width: 100%;
-  transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 90%;
+  max-width: 1000px;
+
   display: flex;
   justify-content: space-between;
-  padding: 0 60px;
+  align-items: center;
+
   opacity: 0;
   transition: opacity 1s ease;
   pointer-events: none;
@@ -63,15 +67,20 @@ body {
 
 #choices button {
   pointer-events: auto;
-  padding: 16px 32px;
+
+  padding: 18px 30px;
   font-size: 18px;
+
+  min-width: 180px;
+  max-width: 250px; /* prevents giant stretching */
+
   background-color: darkred;
   color: white;
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  min-width: 180px;
-  max-width: 300px;
+
+  transition: all 0.3s ease;
 }
 
 #choices button:hover {
@@ -80,12 +89,72 @@ body {
   box-shadow: 0 0 15px red;
 }
 
+/* LEFT BUTTON */
+#choices button:first-child {
+  left: 60px;
+}
+
+/* RIGHT BUTTON */
+#choices button:last-child {
+  right: 60px;
+}
+
+
+button:hover {
+  background-color: red;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px red;
+}
+
 
 #restart {
   display: none;
-  background-color: black;
-  border: 1px solid white;
-  margin-top: 15px;
+
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  padding: 14px 28px;
+  font-size: 16px;
+
+  background-color: darkred;
+  color: white;
+  border: none;
+  border-radius: 8px;
+
+  cursor: pointer;
+  z-index: 200;
+}
+
+#restart:hover {
+  background-color: red;
+  transform: translateX(-50%) scale(1.1);
+}
+
+#restart {
+  display: none;
+
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  padding: 14px 28px;
+  font-size: 16px;
+
+  background-color: darkred;
+  color: white;
+  border: none;
+  border-radius: 8px;
+
+  cursor: pointer;
+  z-index: 200;
+}
+
+#restart:hover {
+  background-color: red;
+  transform: translateX(-50%) scale(1.1);
 }
 
 
