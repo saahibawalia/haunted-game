@@ -302,9 +302,13 @@ You were never at the mansion.`;
 }
 
 function endGame(message) {
-  document.getElementById("story").innerText = message;
-  document.getElementById("choices").innerHTML = "";
-  document.getElementById("restart").style.display = "inline-block";
+  shakeScreen(); // 💥 SHAKE HERE
+
+  setTimeout(() => {
+    document.getElementById("story").innerText = message;
+    document.getElementById("choices").innerHTML = "";
+    document.getElementById("restart").style.display = "inline-block";
+  }, 200);
 }
 
 // ======================
@@ -334,4 +338,14 @@ document.body.addEventListener("click", () => {
     }).catch(() => {});
   }
 }, { once: true });
+
+function shakeScreen() {
+  const container = document.querySelector(".game-container");
+
+  container.classList.add("shake");
+
+  setTimeout(() => {
+    container.classList.remove("shake");
+  }, 400);
+}
 
