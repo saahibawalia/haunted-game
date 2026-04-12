@@ -37,6 +37,7 @@ function typeText(text, elementId, speed = 120, callback = null) {
   typing();
 }
 
+
 // ======================
 // SYSTEM
 // ======================
@@ -48,6 +49,14 @@ function showChoices(html) {
   const choices = document.getElementById("choices");
   choices.innerHTML = html;
   choices.style.opacity = "1";
+}
+
+function randomFlicker() {
+  setInterval(() => {
+    if (Math.random() < 0.2) { // 20% chance
+      flickerScreen();
+    }
+  }, 3000);
 }
 
 // ======================
@@ -109,6 +118,7 @@ Like it was never meant to be touched.`;
 // ======================
 function enterMansion() {
   changeBackground("images/inside-house.png");
+  randomFlicker();
 
   const text = `The door closes behind you.
 
